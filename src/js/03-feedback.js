@@ -13,16 +13,14 @@ form.addEventListener('input', throttle(onInputForm, 500));
 form.addEventListener('submit', onFormSubmit);
 
 function onInputForm(e) {
-  formData.email = form.elements.email.value;
-  formData.message = form.elements.message.value;
+  formData[e.target.name] = e.target.value;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 function onFormSubmit(e) {
   e.preventDefault();
-  e.currentTarget.reset();
-  localStorage.removeItem(STORAGE_KEY);
   console.log(formData);
+  cleanForm();
 }
 
 function initFormFields({ email, message }) {
@@ -30,4 +28,11 @@ function initFormFields({ email, message }) {
   formData.message = message;
   form.elements.email.value = email;
   form.elements.message.value = message;
+}
+
+function cleanForm() {
+  form.reset();
+  localStorage.removeItem(STORAGE_KEY);
+  formData.email = '';
+  formData.message = '';
 }
