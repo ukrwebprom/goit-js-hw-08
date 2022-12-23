@@ -23,7 +23,7 @@ function onFormSubmit(e) {
   cleanForm();
 }
 
-function initFormFields({ email, message }) {
+function initFormFields({ email = '', message = ''}) {
   formData.email = email;
   formData.message = message;
   form.elements.email.value = email;
