@@ -508,19 +508,20 @@ var _lodashThrottle = require("lodash.throttle");
 var _lodashThrottleDefault = parcelHelpers.interopDefault(_lodashThrottle);
 const form = document.querySelector(".feedback-form");
 const formData = {};
-const storedData = localStorage.getItem("feedback-form-state");
+const STORAGE_KEY = "feedback-form-state";
+const storedData = localStorage.getItem(STORAGE_KEY);
 if (storedData) initFormFields(JSON.parse(storedData));
 form.addEventListener("input", (0, _lodashThrottleDefault.default)(onInputForm, 500));
 form.addEventListener("submit", onFormSubmit);
 function onInputForm(e) {
     formData.email = form.elements.email.value;
     formData.message = form.elements.message.value;
-    localStorage.setItem("feedback-form-state", JSON.stringify(formData));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 function onFormSubmit(e) {
     e.preventDefault();
     e.currentTarget.reset();
-    localStorage.removeItem("feedback-form-state");
+    localStorage.removeItem(STORAGE_KEY);
     console.log(formData);
 }
 function initFormFields({ email , message  }) {
